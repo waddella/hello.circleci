@@ -1,0 +1,12 @@
+Package: hello.circleci
+Type: Package
+Title: Dummy packate to learn circleci
+Version: 0.1.0
+Authors@R: c(
+  person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = c("aut", "cre"))
+  )
+Description: This is a simple R package with a couple of dummy functions.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
