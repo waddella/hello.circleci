@@ -37,6 +37,6 @@ workflows:
       - build:
          filters:
             branches:
-              only:
-                - master
+              ignore:
+                - dummy_branch
 
