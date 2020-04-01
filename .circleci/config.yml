@@ -30,4 +30,13 @@ jobs:
           destination: pkgdown
       - store_test_results:
           path: hello.circleci.Rcheck/tests
+workflows:
+  version: 2
+  buil_check_install:
+    jobs:
+      - build:
+         filters:
+            branches:
+              only:
+                - master
 
