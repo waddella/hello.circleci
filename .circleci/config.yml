@@ -12,7 +12,7 @@ jobs:
           command: R CMD build rtables
       - run:
           name: "get package build name"
-          command: echo "export PKG=$(echo rtables_*.tar.gz)" >> $BASH_ENV
+          command: echo "export PKG=$(echo hello.circleci_*.tar.gz)" >> $BASH_ENV
       - run:
           name: "check package"
           command: R CMD check --no-manual --no-build-vignettes ${PKG}
@@ -21,7 +21,7 @@ jobs:
           command: R CMD INSTALL ${PKG}
       - run:
           name: "create pkgdown website"
-          command: R -e 'pkgdown::build_site("rtables", devel = FALSE)'
+          command: R -e 'pkgdown::build_site("hello.circleci", devel = FALSE)'
       - store_artifacts:
           path: rtables.Rcheck
           destination: rtables.Rcheck
