@@ -59,7 +59,9 @@ workflows:
   test:
     jobs:
       - one
-      - build
+      - build:
+        requires:
+          - one
   test2:
     jobs:
       - one
