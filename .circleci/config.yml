@@ -5,6 +5,23 @@ jobs:
     docker:
       - image: rocker/tidyverse:3.6.2
     steps:
+      - run:
+          command: echo "Hello ${CIRCLE_USERNAME}"
+      - run:
+          command: |-
+            echo "TRIGGERER: ${CIRCLE_USERNAME}"
+            echo "BUILD_NUMBER: ${CIRCLE_BUILD_NUM}"
+            echo "BUILD_URL: ${CIRCLE_BUILD_URL}"
+            echo "BRANCH: ${CIRCLE_BRANCH}"
+            echo "RUNNING JOB: ${CIRCLE_JOB}"
+            echo "JOB PARALLELISM: ${CIRCLE_NODE_TOTAL}"
+            echo "CIRCLE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}"
+          name: Show some of the CircleCI runtime env vars
+      - run:
+          command: |-
+            echo "uname:" $(uname -a)
+            echo "arch: " $(arch)
+          name: Show system information
       - checkout:
           path: hello.circleci
       - run:
@@ -22,14 +39,14 @@ jobs:
       - run:
           name: "create pkgdown website"
           command: R -e 'pkgdown::build_site("hello.circleci", devel = FALSE)'
-      - store_artifacts:
-          path: hello.circleci.Rcheck
-          destination: hello.circleci.Rcheck
-      - store_artifacts:
-          path: hello.circleci/docs
-          destination: pkgdown
-      - store_test_results:
-          path: hello.circleci.Rcheck/tests
+#      - store_artifacts:
+#          path: hello.circleci.Rcheck
+#          destination: hello.circleci.Rcheck
+#      - store_artifacts:
+#          path: hello.circleci/docs
+#          destination: pkgdown
+#      - store_test_results:
+#          path: hello.circleci.Rcheck/tests
 workflows:
   version: 2
   buil_check_install:
