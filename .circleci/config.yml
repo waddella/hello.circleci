@@ -40,44 +40,44 @@ jobs:
             - hello.circleci/
             - hello.circleci_0.1.0.tar.gz
 
-  test:
+  check:
     docker:
       - image: rocker/tidyverse:3.6.2
     steps:
       - attach_workspace:
           at: ./
       - run:
-          command: |
-            apt install tree 
-            tree
-
-  check:
-    docker:
-      - image: rocker/tidyverse:3.6.2
-    steps:
-      - run:
           name: "check package"
           command: R CMD check --no-manual --no-build-vignettes ${PKG}
       - run:
           name: "install package"
           command: R CMD INSTALL ${PKG}
-      - run:
-          name: "create pkgdown website"
-          command: R -e 'pkgdown::build_site("hello.circleci", devel = FALSE)'
 #      - store_artifacts:
 #          path: hello.circleci.Rcheck
 #          destination: hello.circleci.Rcheck
-#      - store_artifacts:
-#          path: hello.circleci/docs
-#          destination: pkgdown
 #      - store_test_results:
 #          path: hello.circleci.Rcheck/tests
+
+  pkgdown:
+    docker:
+      - image: rocker/tidyverse:3.6.2
+    steps:
+      - run:
+          name: "create pkgdown website"
+          command: R -e 'pkgdown::build_site("hello.circleci", devel = FALSE)'
+      - store_artifacts:
+          path: hello.circleci/docs
+          destination: pkgdown
+
 workflows:
   version: 2
-  test:
+  Rworkflow:
     jobs:
       - build
-      - test:
+      - check:
+          requires:
+            - build
+      - pkgdown:
           requires:
             - build
 
