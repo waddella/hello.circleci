@@ -37,6 +37,7 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
+            - hello.circleci/
             - hello.circleci_0.1.0.tar.gz
 
   test:
