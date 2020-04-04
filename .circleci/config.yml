@@ -54,8 +54,8 @@ jobs:
 #      - store_artifacts:
 #          path: hello.circleci.Rcheck
 #          destination: hello.circleci.Rcheck
-#      - store_test_results:
-#          path: hello.circleci.Rcheck/tests
+      - store_test_results:
+          path: hello.circleci.Rcheck/tests
 
   pkgdown:
     docker:
