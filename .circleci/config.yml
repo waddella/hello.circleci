@@ -37,7 +37,7 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - .tar.gz
+            - "*.tar.gz"
 
   check:
     docker:
