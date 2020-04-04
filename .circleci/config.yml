@@ -48,7 +48,7 @@ jobs:
       - run:
           name: "check package"
           command: |
-            PGK=$(echo *.tar.gz)
+            PKG=$(echo *.tar.gz)
             R CMD check --no-manual --no-build-vignettes ${PKG}
       - run:
           name: "install package"
