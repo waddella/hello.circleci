@@ -60,4 +60,7 @@ workflows:
     jobs:
       - one
       - build
+  test2:
+    jobs:
+      - one
 
