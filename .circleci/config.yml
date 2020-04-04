@@ -33,12 +33,11 @@ jobs:
           command: R CMD build hello.circleci
       - run:
           name: "get package build name"
-          command: echo "export PKG=$(echo hello.circleci_*.tar.gz)" >> $BASH_ENV
+          command: echo "export PKG=$(echo *.tar.gz)" >> $BASH_ENV
       - persist_to_workspace:
           root: ./
           paths:
-            - hello.circleci/
-            - hello.circleci_0.1.0.tar.gz
+            - .tar.gz
 
   check:
     docker:
@@ -48,7 +47,9 @@ jobs:
           at: ./
       - run:
           name: "check package"
-          command: R CMD check --no-manual --no-build-vignettes ${PKG}
+          command: |
+            PGK=$(echo *.tar.gz)
+            R CMD check --no-manual --no-build-vignettes ${PKG}
       - run:
           name: "install package"
           command: R CMD INSTALL ${PKG}
@@ -62,6 +63,8 @@ jobs:
     docker:
       - image: rocker/tidyverse:3.6.2
     steps:
+      - checkout:
+          path: hello.circleci
       - run:
           name: "create pkgdown website"
           command: R -e 'pkgdown::build_site("hello.circleci", devel = FALSE)'
